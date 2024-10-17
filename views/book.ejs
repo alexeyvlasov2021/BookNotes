@@ -1,0 +1,67 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <a href="/" style="margin-left: 50px ;"><button class="backBtn">🔙</button></a>
+
+    <% if(locals.data) {%>
+
+        <form action="/update" method="post" class="controlsContainer">
+            <input type="hidden" name="bookId" value ="<%= data[0].id %>">
+            
+            <label for="title">title</label>
+            <input type="text" name="title" id="title" value="<%= data[0].title %>">
+
+
+            <label for="description">description</label>
+            <textarea name="description" id="description"><%= data[0].description %></textarea>
+
+            
+            <input type="submit" value="save description" class="save">
+            
+        </form>
+
+
+        <form action="/delete" method="post" class="controlsContainer">
+            <input type="hidden" name="bookId" value ="<%= data[0].id %>">
+            <input type="submit" value="delete book" class="delete">
+        </form>
+
+        <hr>
+        <br>
+        <br>
+
+        <form action="/add" method="post" class="controlsContainer">
+            <input type="hidden" name="bookId" value ="<%= data[0].id %>">
+            <label for="newNote">Add new note</label>
+            <input type="text" name="noteText" id="newNote">
+            <input type="submit" value="save note" class="save">
+        </form>
+        
+        <br>
+        <br>
+
+
+        <div class="container">
+            <h3>Notes:</h3>
+
+            <ul>
+            <% data.forEach(element => {%>
+                <li><%= element.note %></li>
+
+                <% if(element.note){ %>
+                <form action="/deleteNote" method="post" class="controlsContainer">
+                    <input type="hidden" name="bookId" value ="<%= element.id %>">
+                    <input type="hidden" name="notesId" value ="<%= element.notes_id %>">
+                    <input type="submit" value="delete note" class="delete" style="background-color: yellow; color: black;">
+                </form>
+                <% } %>
+       
+            <%}); %>
+            
+            </ul>
+
+        </div>
+
+    <% } %>
+    
+</body>
+</html>

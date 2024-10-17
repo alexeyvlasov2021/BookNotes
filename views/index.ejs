@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs") %>
+<body class="container">
+     <a href="/new"><button class="addNew">add new ✚</button></a>
+
+    <% if(locals.books) {%>
+        <% books.forEach(book => {%>
+             
+                <h3><a href="/view?id=<%= book.id %>"><%= book.title %></a></h3>
+                <div class="description">
+                    <img src="<%= book.img %>" alt="book cover" width="200px">
+                    <div><%= book.description %></div>
+                </div>
+                
+
+                <form action="/delete" method="post">
+                    <input type="hidden" name="bookId" value ="<%= book.id %>">
+                    <input type="submit" value="delete book" class="delete">
+                </form>
+                <hr>
+
+        <%}); %>
+    <% } %>
+
+</body>
+</html>
